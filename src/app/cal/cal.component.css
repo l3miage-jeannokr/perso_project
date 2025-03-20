@@ -1,0 +1,31 @@
+/* Style pour la grille de photos */
+.photo-grid {
+  display: grid;                      /* Utilise le modèle de grille CSS */
+  grid-template-columns: repeat(4, 1fr); /* Crée 4 colonnes égales */
+  grid-template-rows: repeat(3, 1fr);    /* Crée 3 lignes égales */
+  gap: 2px;                           /* Espacement entre les cases */
+  margin: 2px;                        /* Espacement autour de la grille */
+}
+
+/* Style pour chaque "case" autour des photos */
+.photo-box {
+  position: relative;                  /* Permet de positionner l'image à l'intérieur de la case */
+  overflow: hidden;                    /* Cache tout ce qui dépasse de la case */
+  border: 2px solid #b12c2c;              /* Bordure autour de chaque case */
+  border-radius: 8px;                  /* Coins arrondis pour les cases */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère autour des cases */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation au survol */
+}
+
+/* Style pour les images à l'intérieur des cases */
+.photo-box img {
+  width: 100%;                         /* L'image occupe toute la largeur de la case */
+  height: 100%;                        /* L'image occupe toute la hauteur de la case */
+  object-fit: cover;                   /* L'image remplira l'espace sans déformation */
+}
+
+/* Effet au survol de la case */
+.photo-box:hover {
+  transform: scale(1.05);              /* Légère augmentation de la taille au survol */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+}
