@@ -10,24 +10,67 @@ export class PhotoService {
         
         {
             PhotoURL: 'https://thispersondoesnotexist.com/',
-            PhotoTitle: 'Photo1',
+            PhotoDescription: 'Photo1',
             PhotoDate: new Date(2021, 1, 1)
         },
         {
             PhotoURL: 'https://thispersondoesnotexist.com/',
-            PhotoTitle: 'Photo2',
+            PhotoDescription: 'Photo2',
             PhotoDate: new Date(2021, 2, 1)
         },
         {
             PhotoURL: 'https://thispersondoesnotexist.com/',
-            PhotoTitle: 'Photo3',
+            PhotoDescription: 'Photo3',
             PhotoDate: new Date(2021, 3, 1)
         },
         {
             PhotoURL: 'https://thispersondoesnotexist.com/',
-            PhotoTitle: 'Photo4',
+            PhotoDescription: 'Photo4',
             PhotoDate: new Date(2021, 4, 1)
         },
+
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo5',
+            PhotoDate: new Date(2021, 1, 1)
+        },
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo6',
+            PhotoDate: new Date(2021, 2, 1)
+        },
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo7',
+            PhotoDate: new Date(2021, 3, 1)
+        },
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo8',
+            PhotoDate: new Date(2021, 4, 1)
+        },
+
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo9',
+            PhotoDate: new Date(2021, 1, 1)
+        },
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo10',
+            PhotoDate: new Date(2021, 2, 1)
+        },
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo11',
+            PhotoDate: new Date(2021, 3, 1)
+        },
+        {
+            PhotoURL: 'https://thispersondoesnotexist.com/',
+            PhotoDescription: 'Photo12',
+            PhotoDate: new Date(2021, 4, 1)
+        },
+        
     ]);
 
     public readonly photosList = this._PhotosList.asReadonly();

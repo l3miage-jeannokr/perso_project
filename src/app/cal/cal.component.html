@@ -1,21 +1,19 @@
-
-@if(mode()=="display"){
+@if(mode() == "display"){
     <div class="photo-grid">
         <div class="photo-box">
             <input type="button" value="Upload" (click)="uploadMode()" /><br/>
             {{photos()?.PhotoDate | date: 'dd/MM/yyyy'}}
         </div>
-
     </div>
 }
 
-@if(mode()=="edit"){
+@if(mode() == "edit"){
     <div class="photo-grid">
         <div class="photo-box">
-            <img [src]="photos()?.PhotoURL"/>
-        </div>
-        <input type="button" value="Caché" (click)="changeModel()"/>
-        {{photos()?.PhotoTitle}}
+            <img [src]="photos()?.PhotoURL" />
+            <input type="button" value="Caché" (click)="changeModel()"/>
+            {{photos()?.PhotoDescription}}
 
+        </div>
     </div>
 }
