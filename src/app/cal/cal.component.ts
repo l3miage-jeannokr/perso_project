@@ -2,7 +2,6 @@ import { Component, inject, input, model } from '@angular/core';
 import { Photo } from '../data/Photo';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
-import { GoogleAPIService } from '../services/google-api.service';
 
 @Component({
   selector: 'app-cal',
@@ -12,7 +11,6 @@ import { GoogleAPIService } from '../services/google-api.service';
 })
 export class CalComponent {
 
-  private API= inject(GoogleAPIService);
 //  constructor (private api: GoogleAPIService){}
     
   

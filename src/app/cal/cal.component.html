@@ -10,7 +10,7 @@
 @if(mode() == "edit"){
     <div class="photo-grid">
         <div class="photo-box">
-            <img [src]="photos()?.PhotoURL" />
+            <img [src]="photos()?.PhotoURL" (error)="photos()?.PhotoURL" />
             <input type="button" value="Caché" (click)="changeModel()"/>
             {{photos()?.PhotoDescription}}
 

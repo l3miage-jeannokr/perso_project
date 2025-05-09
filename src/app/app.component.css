@@ -1,0 +1,92 @@
+/* Layout principal */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Accueil */
+  .accueil {
+    text-align: center;
+    padding: 4rem 0;
+  }
+  
+  .accueil h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .accueil button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .accueil button:hover {
+    background-color: #135ba1;
+  }
+  
+  /* Application */
+  .application {
+    margin-top: 2rem;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+  
+  .actions button {
+    padding: 0.6rem 1.2rem;
+    background-color: #43a047;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .actions input[type="file"] {
+    cursor: pointer;
+  }
+  
+  /* Galerie */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .photo-item {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .photo-item img {
+    max-width: 100%;
+    border-radius: 8px;
+    height: auto;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .photo-item p {
+    margin: 0.3rem 0;
+    font-weight: bold;
+  }
+  
+  .photo-item small {
+    color: #666;
+  }
+
+  

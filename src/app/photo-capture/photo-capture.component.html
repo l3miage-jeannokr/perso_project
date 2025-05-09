@@ -1,0 +1,34 @@
+<div class="photo-capture-container">
+    <h2>Capturer ou téléverser une photo</h2>
+  
+    <!-- Zone de capture depuis webcam -->
+    <div class="capture-section">
+      <video #videoElement autoplay playsinline width="300" height="200"></video>
+      <canvas #canvasElement width="300" height="200" style="display: none;"></canvas>
+      <button (click)="capturePhoto()">Capturer la photo</button>
+    </div>
+  
+    <!-- Affichage de la photo capturée -->
+    <div class="preview" *ngIf="photo">
+      <h3>Prévisualisation</h3>
+      <img [src]="photo" alt="Photo capturée" width="300" />
+    </div>
+  
+    <!-- Upload depuis l'appareil -->
+    <div class="upload-section">
+      <input type="file" accept="image/*" (change)="onPhotoUpload($event)" />
+    </div>
+  
+    <!-- Galerie des photos -->
+    <div class="gallery">
+      <h3>Galerie</h3>
+      <div class="photo-grid">
+        <div *ngFor="let p of photosList" class="photo-card">
+          <img [src]="p.PhotoURL" [alt]="p.PhotoDescription" width="150" />
+          <p>{{ p.PhotoDescription }}</p>
+          <small>{{ p.PhotoDate | date:'mediumDate' }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  
