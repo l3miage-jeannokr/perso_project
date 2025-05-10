@@ -1,0 +1,14 @@
+<p>memory-game works!</p>
+<h2>Jeu de mémoire</h2>
+<div class="grid">
+  <div 
+    *ngFor="let card of cards; let i = index"
+    class="card"
+    (click)="revealCard(i)"
+  >
+    <img 
+      [src]="card.revealed ? card.url : placeholder"
+      [alt]="card.revealed ? 'Photo' : 'Cachée'"
+    />
+  </div>
+</div>
