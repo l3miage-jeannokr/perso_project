@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production && cp dist/test1/browser/index.html dist/test1/browser/404.html && npx angular-cli-ghpages --dir=dist/test1/browser"
+
   },
   "private": true,
   "dependencies": {
