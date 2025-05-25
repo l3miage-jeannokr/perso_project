@@ -106,6 +106,9 @@ export class PhotoService {
   getPhotos(): Observable<Photo[]> {
     return this.http.get<Photo[]>(this.apiUrl);  // Récupère les photos depuis l'API
   }
+  public getPhotosSatic(): Observable<Photo[]> {
+    return this._PhotosList.asObservable();
+  }
 
   // Méthode pour récupérer les photos locales (depuis BehaviorSubject)
   getLocalPhotos(): Photo[] {

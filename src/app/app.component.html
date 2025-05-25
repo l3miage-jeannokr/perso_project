@@ -3,7 +3,15 @@
   <div *ngIf="aspect === 'accueil'" class="accueil">
     <h1>Bienvenue</h1>
     <button (click)="uploadMode()">Accéder à l'application</button>
+    <button (click)="uploadJeux()"> Accéder aux Jeu</button>
   </div>
+
+  <!-- Jeux -->
+  <div *ngIf="aspect === 'jeux'">
+    <app-jeux></app-jeux>
+  </div>
+
+
 
   <!-- Application -->
   <div *ngIf="aspect === 'appl'" class="application">

@@ -5,11 +5,12 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PhotoService } from './service/photo-service.service';
 import { Subscription } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
+import { JeuxComponent } from './jeux/jeux.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DatePipe, PhotoCaptureComponent, CommonModule, HttpClientModule],
+  imports: [DatePipe, PhotoCaptureComponent, CommonModule, HttpClientModule, JeuxComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy{  title = 'test1';
   photosList: Photo[] = [];
   private photosSubscription: Subscription | undefined;
 
-  public aspect: "appl" | "accueil" = "accueil";
+  public aspect: "appl" | "accueil" | "jeux" = "accueil";
 
   // Injection du service PhotoService
   private readonly photosService = inject(PhotoService);
@@ -61,6 +62,10 @@ export class AppComponent implements OnInit, OnDestroy{  title = 'test1';
   uploadMode(): void {
     // Logique pour changer de mode, par exemple :
     this.aspect = 'appl'; // Change le mode selon ton besoin
+  }
+
+  uploadJeux(): void{
+    this.aspect= 'jeux'
   }
 
   trackById(index: number, photo: Photo): number {

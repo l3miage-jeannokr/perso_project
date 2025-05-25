@@ -1,0 +1,73 @@
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    align-items: start;
+  }
+  
+  /* La carte reste avec taille fixe, rien ne dépasse */
+  .card {
+    width: 180px;
+    height: 240px;
+    perspective: 1000px;
+    position: relative;
+  }
+  
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* ✅ Flip seulement à l’intérieur, pas d’expansion */
+  .card.revealed .card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-front {
+    background-color: #cccccc;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .card-back {
+    background-color: white;
+    transform: rotateY(180deg);
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* ✅ Taille fixe de l’image pour éviter débordement */
+  .card-back img {
+    width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .card-back p,
+  .card-back small {
+    margin: 0.3rem 0;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  

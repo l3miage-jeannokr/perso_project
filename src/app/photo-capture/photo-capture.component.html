@@ -19,16 +19,6 @@
       <input type="file" accept="image/*" (change)="onPhotoUpload($event)" />
     </div>
   
-    <!-- Galerie des photos -->
-    <div class="gallery">
-      <h3>Galerie</h3>
-      <div class="photo-grid">
-        <div *ngFor="let p of photosList" class="photo-card">
-          <img [src]="p.PhotoURL" [alt]="p.PhotoDescription" width="150" />
-          <p>{{ p.PhotoDescription }}</p>
-          <small>{{ p.PhotoDate | date:'mediumDate' }}</small>
-        </div>
-      </div>
-    </div>
+
   </div>
   
