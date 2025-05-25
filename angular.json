@@ -81,7 +81,9 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": {
+              "deploy": "ng build --configuration production && cp dist/test1/browser/index.html dist/test1/browser/404.html && npx angular-cli-ghpages --dir=dist/test1/browser"
+            }
           }
         },
         "deploy": {
