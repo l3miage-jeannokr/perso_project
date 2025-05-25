@@ -4,8 +4,10 @@
     "PhotoURL": "http://localhost:3000/uploads/1748191111034-captured.png",
     "PhotoDescription": "ETGRS",
     "PhotoDate": "2025-05-25T16:38:31.036Z",
-    "likes": 0,
-    "comments": []
+    "likes": 2,
+    "comments": [
+      "rbngdvs"
+    ]
   },
   {
     "IdP": 2,

@@ -7,7 +7,7 @@ import { Photo } from '../data/Photo';
   providedIn: 'root'
 })
 export class PhotoService {
-  private apiUrl = 'http://localhost:3000/api/photos'; // Backend Express
+  private apiUrl = 'https://perso-project.onrender.com';   // Backend Express
 
   // --- CÔTÉ JEU (local, statique) ---
   private readonly staticPhotos: Photo[] = [
