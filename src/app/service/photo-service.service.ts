@@ -7,7 +7,7 @@ import { Photo } from '../data/Photo';
   providedIn: 'root'
 })
 export class PhotoService {
-  private apiUrl = 'https://backend-only-iozr.onrender.com/api/photos';   // Backend Express
+  private apiUrl = 'https://backend-only-iozr.onrender.com';   // Backend Express
 
   // --- CÔTÉ JEU (local, statique) ---
   private readonly staticPhotos: Photo[] = [
