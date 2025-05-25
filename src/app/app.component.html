@@ -3,7 +3,7 @@
   <div *ngIf="aspect === 'accueil'" class="accueil">
     <h1>Bienvenue</h1>
     <button (click)="uploadMode()">Accéder à l'application</button>
-    <button (click)="uploadJeux()"> Accéder aux Jeu</button>
+    <button (click)="uploadJeux()">Accéder aux Jeux</button>
   </div>
 
   <!-- Jeux -->
@@ -11,27 +11,39 @@
     <app-jeux></app-jeux>
   </div>
 
-
-
-  <!-- Application -->
+  <!-- Application photo -->
   <div *ngIf="aspect === 'appl'" class="application">
     <h2>Galerie de Photos</h2>
 
-    <!-- Boutons d'action -->
-    <div class="actions">
-      <button (click)="onCapture()">Prendre une photo</button>
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-    </div>
+    <!-- Capture -->
+    <app-photo-capture (photoCaptured)="onPhotoTaken($event)"></app-photo-capture>
 
-    <!-- Composant de capture (si utilisé pour prévisualisation) -->
-   <app-photo-capture></app-photo-capture>
-    <!-- Affichage des photos -->
-    <div class="gallery">
-      <div *ngFor="let photo of photosList; trackBy: trackById" class="photo-item">
-        <img [src]="photo.PhotoURL" [alt]="photo.PhotoDescription" />
-        <p>{{ photo.PhotoDescription }}</p>
-        <small>{{ photo.PhotoDate | date: 'medium' }}</small>
+    <div class="feed">
+      <div *ngFor="let photo of photosList; trackBy: trackById" class="feed-item">
+        <div class="photo-card">
+          <img [src]="photo.PhotoURL" [alt]="photo.PhotoDescription" />
+          <div class="photo-details">
+            <p class="description">{{ photo.PhotoDescription }}</p>
+            <small class="date">{{ photo.PhotoDate | date: 'medium' }}</small>
+    
+            <!-- Actions -->
+            <div class="actions">
+              <button (click)="likePhoto(photo)">❤️ {{ photo.likes || 0 }} J'aime</button>
+            </div>
+    
+            <!-- Commentaire -->
+            <div class="comment-box">
+              <input type="text" [(ngModel)]="commentInputs[photo.IdP]" placeholder="Ajouter un commentaire..." />
+              <button (click)="addComment(photo)">Poster</button>
+            </div>
+    
+            <!-- Affichage des commentaires -->
+            <div class="comments" *ngIf="photo.comments?.length">
+              <p *ngFor="let c of photo.comments">💬 {{ c }}</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </div>    
+    
 </div>

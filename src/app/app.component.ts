@@ -1,97 +1,122 @@
-import { Component, inject, model, OnDestroy, OnInit } from '@angular/core';
-import { PhotoCaptureComponent } from './photo-capture/photo-capture.component';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Photo } from './data/Photo';
-import { CommonModule, DatePipe } from '@angular/common';
 import { PhotoService } from './service/photo-service.service';
 import { Subscription } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
+import { PhotoCaptureComponent } from './photo-capture/photo-capture.component';
 import { JeuxComponent } from './jeux/jeux.component';
+import { CommonModule, DatePipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { DescriptionDialogComponent } from './shared/description-dialog/description-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DatePipe, PhotoCaptureComponent, CommonModule, HttpClientModule, JeuxComponent],
+  imports: [
+    DatePipe,
+    CommonModule,
+    HttpClientModule,
+    PhotoCaptureComponent,
+    JeuxComponent,
+    FormsModule
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy{  title = 'test1';
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'test1';
+
   photosList: Photo[] = [];
-  private photosSubscription: Subscription | undefined;
+  aspect: 'appl' | 'accueil' | 'jeux' = 'accueil';
 
-  public aspect: "appl" | "accueil" | "jeux" = "accueil";
-
-  // Injection du service PhotoService
   private readonly photosService = inject(PhotoService);
+  private readonly dialog = inject(MatDialog);
+  private photosSubscription?: Subscription;
 
   ngOnInit(): void {
-    // S'abonner à photosList$ pour recevoir les mises à jour des photos
+    this.photosService.loadPhotosFromAPI();
     this.photosSubscription = this.photosService.photosList$.subscribe(photos => {
       this.photosList = photos;
     });
-
-    // Charger les photos depuis l'API
-    this.photosService.loadPhotosFromAPI();
   }
 
   ngOnDestroy(): void {
-    // Se désabonner pour éviter les fuites de mémoire
-    if (this.photosSubscription) {
-      this.photosSubscription.unsubscribe();
-    }
-  }
-
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const newPhoto: Photo = {
-          IdP: this.photosList.length + 1, // Génère un ID unique
-          PhotoURL: e.target.result, // L'URL de l'image en base64
-          PhotoDescription: file.name, // Utilise le nom du fichier pour la description
-          PhotoDate: new Date() // Date de la prise de la photo
-        };
-
-        // Ajoute la nouvelle photo à la liste via le service
-        this.photosService.addPhoto(newPhoto);
-      };
-      reader.readAsDataURL(file); // Convertit l'image en URL base64
-    }
+    this.photosSubscription?.unsubscribe();
   }
 
   uploadMode(): void {
-    // Logique pour changer de mode, par exemple :
-    this.aspect = 'appl'; // Change le mode selon ton besoin
+    this.aspect = 'appl';
   }
 
-  uploadJeux(): void{
-    this.aspect= 'jeux'
+  uploadJeux(): void {
+    this.aspect = 'jeux';
   }
 
   trackById(index: number, photo: Photo): number {
-    return photo.IdP;  // Utilise l'ID de chaque photo pour le suivi
+    return photo.IdP;
+  }
+
+  async onFileSelected(event: any): Promise<void> {
+    const file = event.target.files[0];
+    if (file) {
+      const description = await this.promptForDescription();
+      if (!description) return;
+
+      const formData = new FormData();
+      formData.append('photo', file);
+      formData.append('description', description);
+
+      this.photosService.uploadPhotoWithForm(formData).subscribe(() => {
+        this.photosService.loadPhotosFromAPI();
+      });
+    }
+  }
+  
+  async onPhotoTaken(dataUrl: string): Promise<void> {
+    const description = await this.promptForDescription();
+    if (!description) return;
+  
+    this.photosService.uploadCapturedPhoto(dataUrl, description).subscribe(() => {
+      this.photosService.loadPhotosFromAPI();
+    });
+  }
+  
+
+  async promptForDescription(): Promise<string | null> {
+    const dialogRef = this.dialog.open(DescriptionDialogComponent, {
+      width: '400px'
+    });
+    return dialogRef.afterClosed().toPromise();
   }
 
   onCapture(): void {
     const input: HTMLInputElement = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    input.capture = 'camera'; // Utilisation de la caméra pour la capture
-    input.onchange = (event: any) => this.onFileSelected(event); // Gère la photo après capture
-    input.click(); // Ouvre la fenêtre de sélection
+    input.capture = 'environment';
+    input.onchange = (event: any) => this.onFileSelected(event);
+    input.click();
   }
 
-  onPhotoTaken(dataUrl: string): void {
-    console.log('Photo capturée :', dataUrl);
-    const newPhoto: Photo = {
-      IdP: this.photosList.length + 1,
-      PhotoURL: dataUrl,
-      PhotoDescription: 'Photo capturée',
-      PhotoDate: new Date()
-    };
-
-    // Ajoute la nouvelle photo au service
-    this.photosService.addPhoto(newPhoto);
+  commentInputs: { [photoId: number]: string } = {};
+  likePhoto(photo: Photo): void {
+    photo.likes = (photo.likes || 0) + 1;
+    this.photosService.updatePhoto(photo).subscribe(() => {
+      this.photosService.loadPhotosFromAPI(); // recharge l'état
+    });
   }
   
+  addComment(photo: Photo): void {
+    const comment = this.commentInputs[photo.IdP]?.trim();
+    if (comment) {
+      photo.comments = photo.comments || [];
+      photo.comments.push(comment);
+      this.commentInputs[photo.IdP] = '';
+      this.photosService.updatePhoto(photo).subscribe(() => {
+        this.photosService.loadPhotosFromAPI(); // recharge
+      });
+    }
+  }
+    
 }

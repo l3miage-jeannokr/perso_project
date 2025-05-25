@@ -1,24 +1,16 @@
-<div class="photo-capture-container">
-    <h2>Capturer ou téléverser une photo</h2>
-  
-    <!-- Zone de capture depuis webcam -->
-    <div class="capture-section">
-      <video #videoElement autoplay playsinline width="300" height="200"></video>
-      <canvas #canvasElement width="300" height="200" style="display: none;"></canvas>
-      <button (click)="capturePhoto()">Capturer la photo</button>
-    </div>
-  
-    <!-- Affichage de la photo capturée -->
-    <div class="preview" *ngIf="photo">
-      <h3>Prévisualisation</h3>
-      <img [src]="photo" alt="Photo capturée" width="300" />
-    </div>
-  
-    <!-- Upload depuis l'appareil -->
-    <div class="upload-section">
-      <input type="file" accept="image/*" (change)="onPhotoUpload($event)" />
-    </div>
-  
+<h3>Capture de photo</h3>
 
-  </div>
-  
+<!-- Affichage de la webcam -->
+<video autoplay playsinline width="300"></video>
+<br />
+
+<!-- Bouton pour capturer la photo -->
+<button class="capture-button" (click)="capturePhoto()">📸 Prendre une photo</button>
+
+<br />
+
+<!-- Prévisualisation locale -->
+<div *ngIf="photo">
+  <h4>Prévisualisation</h4>
+  <img [src]="photo" alt="Photo capturée" width="200" />
+</div>

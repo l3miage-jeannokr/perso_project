@@ -1,25 +1,24 @@
-import { Component, Inject, inject, input, model, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Photo } from '../data/Photo';
 import { PhotoService } from '../service/photo-service.service';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-jeux',
+  standalone: true, // ✅ si tu veux l’utiliser sans module
   imports: [CommonModule],
   templateUrl: './jeux.component.html',
-  styleUrl: './jeux.component.css'
+  styleUrls: ['./jeux.component.css'] // ✅ corrigé
 })
 export class JeuxComponent {
-
-
   private readonly photoService = inject(PhotoService);
 
+  // Liste des photos avec état d'affichage
   photosWithState: (Photo & { isRevealed: boolean })[] = [];
 
   constructor() {
-    // Abonnement pour copier la liste des photos et ajouter une propriété "isRevealed"
-    this.photoService.getPhotosSatic().subscribe((photos) => {
+    // Charger les photos statiques et ajouter la propriété "isRevealed"
+    this.photoService.getPhotosStatic().subscribe((photos) => {
       this.photosWithState = photos.map(photo => ({
         ...photo,
         isRevealed: false
@@ -27,8 +26,8 @@ export class JeuxComponent {
     });
   }
 
+  // Révéler une seule photo au clic
   revealPhoto(photo: Photo & { isRevealed: boolean }) {
     photo.isRevealed = true;
   }
-
 }
